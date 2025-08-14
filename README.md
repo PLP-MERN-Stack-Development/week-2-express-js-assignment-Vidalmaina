@@ -61,3 +61,48 @@ Your work will be automatically submitted when you push to your GitHub Classroom
 - [Express.js Documentation](https://expressjs.com/)
 - [RESTful API Design Best Practices](https://restfulapi.net/)
 - [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) 
+.
+├── controllers/
+├── data/
+├── errors/
+├── middleware/
+├── routes/
+├── utils/
+├── .env.example
+├── .gitignore
+├── package.json
+├── README.md
+└── server.js
+npm install
+cp .env.example .env
+# then open .env and set:
+# API_KEY=supersecretapikey
+# PORT=3000
+npm start
+# List products (with pagination/filter)
+curl "http://localhost:3000/api/products?category=collectibles&page=1&limit=1"
+
+# Get by ID (replace :id with real id from list)
+curl http://localhost:3000/api/products/a1
+
+# Search
+curl "http://localhost:3000/api/products/search?q=egg"
+
+# Stats (count by category)
+curl http://localhost:3000/api/products/stats
+
+# Create (requires API key)
+curl -X POST http://localhost:3000/api/products \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: supersecretapikey" \
+  -d '{"name":"Direwolf Plush","description":"Soft toy","price":19.99,"category":"merch","inStock":true}'
+
+# Update (requires API key) — replace :id
+curl -X PUT http://localhost:3000/api/products/:id \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: supersecretapikey" \
+  -d '{"name":"Direwolf Plush XL","description":"Bigger","price":24.99,"category":"merch","inStock":true}'
+
+# Delete (requires API key) — replace :id
+curl -X DELETE http://localhost:3000/api/products/:id \
+  -H "x-api-key: supersecretapikey"
